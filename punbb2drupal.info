@@ -1,0 +1,12 @@
+; $Id$
+
+name = Forum migration
+version = VERSION
+description = Migrate PunBB to Drupal.
+core = 6.x
+
+dependencies[] = forum
+dependencies[] = comment
+dependencies[] = taxonomy
+dependencies[] = user
+dependencies[] = bbcode

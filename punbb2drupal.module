@@ -1,0 +1,111 @@
+<?php
+// $Id$
+
+/**
+ * @file
+ * 
+ * Drupal hook implementations.
+ */
+
+/**
+ * @DONE:  User/Role
+ * @DONE:  Categories => Forum Container.
+ * @DONE:  Forum
+ * @DONE:  Topics => Node.
+ * @DONE:  Comments.
+ * @TODO:  Moderator
+ * @TODO:  Forum permissions
+ * @TODO:  Group => Roles
+ * @TODO:  Subscriptions.
+ * @TODO:  User profile fields.
+ */
+
+global $F_PREFIX;
+# $F_PREFIX = 'commonpa_punbbforum.cpf';
+$F_PREFIX = 'commonpa_punbbforum.cpf';
+
+/**
+ * Implements hook_menu().
+ */
+function punbb2drupal_menu() {
+  $items['forum-migrate/users'] = array(
+    'title' => 'Import users',
+    'access arguments' => array('administer site configuration'),
+    'file' => 'includes/punbb2drupal.users.inc',
+    'page callback' => 'punbb2drupal_import_users',
+    'weight' => -1000,
+  );
+
+  $items['forum-migrate/forum-containers'] = array(
+    'title' => 'Import forum containers',
+    'access arguments' => array('administer site configuration'),
+    'file' => 'includes/punbb2drupal.terms.inc',
+    'page callback' => 'punbb2drupal_import_containers',
+    'weight' => -999,
+  );
+
+  $items['forum-migrate/forums'] = array(
+    'title' => 'Import forums',
+    'access arguments' => array('administer site configuration'),
+    'file' => 'includes/punbb2drupal.terms.inc',
+    'page callback' => 'punbb2drupal_import_forums',
+    'weight' => -998,
+  );
+
+  $items['forum-migrate/forum-topics'] = array(
+    'title' => 'Import Topics',
+    'access arguments' => array('administer site configuration'),
+    'file' => 'includes/punbb2drupal.node.inc',
+    'page callback' => 'punbb2drupal_import_topics',
+    'weight' => -997,
+  );
+  
+  $items['forum-migrate/forum-comments'] = array(
+    'title' => 'Import Comments',
+    'access arguments' => array('administer site configuration'),
+    'file' => 'includes/punbb2drupal.comment.inc',
+    'page callback' => 'punbb2drupal_import_comments',
+    'weight' => -996,
+  );
+  
+  $items['forum-migrate/302-generate'] = array(
+    'title' => '302 Redirects',
+    'access arguments' => array('administer site configuration'),
+    'file' => 'includes/punbb2drupal.302.inc',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('punbb2drupal_302_form'),
+    'weight' => -995,
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_user().
+ */
+function punbb2drupal_user($op, &$edit, &$account, $category = NULL) {
+  if ($op === 'insert') {
+    module_load_include('inc', 'punbb2drupal', 'includes/punbb2drupal.users');
+    return punbb2drupal_user_insert($edit, $account);
+  }
+}
+
+/**
+ * Implements hook_taxonomy().
+ */
+function punbb2drupal_taxonomy($op, $type, $edit = NULL) {
+  if ($op === 'insert' && $type === 'term') {
+    module_load_include('inc', 'punbb2drupal', 'includes/punbb2drupal.terms');
+    return punbb2drupal_taxonomy_insert($edit);
+  }
+}
+
+/**
+ * Implements hook_nodeapi().
+ */
+function punbb2drupal_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
+  if ($op === 'insert' && $node->type === 'forum') {
+    module_load_include('inc', 'punbb2drupal', 'includes/punbb2drupal.node');
+    return punbb2drupal_node_api_insert($node);
+  }
+}

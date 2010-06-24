@@ -1,0 +1,141 @@
+<?php
+// $Id$
+
+/**
+ * Implements hook_install().
+ */
+function punbb2drupal_install() {
+  drupal_install_schema('punbb2drupal');
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function punbb2drupal_uninstall() {
+  drupal_uninstall_schema('punbb2drupal');
+}
+
+/**
+ * Implements hook_schema().
+ */
+function punbb2drupal_schema() {
+  $schema['punbb2drupal_user'] = array(
+    'description' => t('TODO: please describe this table!'),
+    'fields' => array(
+      'uid' => array(
+        'description' => t('TODO: please describe this field!'),
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'id' => array(
+        'description' => t('TODO: please describe this field!'),
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'password' => array(
+        'description' => t('TODO: please describe this field!'),
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => TRUE,
+      ),
+      'salt' => array(
+        'description' => t('TODO: please describe this field!'),
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => TRUE,
+      ),
+      'data' => array(
+        'description' => t('TODO: please describe this field!'),
+        'type' => 'text',
+        'not null' => TRUE,
+      ),
+    ),
+  );
+  
+  $schema['punbb2drupal_container'] = array(
+    'description' => t('TODO: please describe this table!'),
+    'fields' => array(
+      'tid' => array(
+        'description' => t('TODO: please describe this field!'),
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'id' => array(
+        'description' => t('TODO: please describe this field!'),
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+    ),
+  );
+  
+  $schema['punbb2drupal_forum'] = array(
+    'description' => t('TODO: please describe this table!'),
+    'fields' => array(
+      'tid' => array(
+        'description' => t('TODO: please describe this field!'),
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'id' => array(
+        'description' => t('TODO: please describe this field!'),
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'data' => array(
+        'description' => t('TODO: please describe this field!'),
+        'type' => 'text',
+        'not null' => TRUE,
+      ),
+    ),
+  );
+
+  $schema['punbb2drupal_topic'] = array(
+    'description' => t('TODO: please describe this table!'),
+    'fields' => array(
+      'nid' => array(
+        'description' => t('TODO: please describe this field!'),
+        'type' => 'int',
+        'not null' => TRUE,
+      ),
+      'id' => array(
+        'description' => t('TODO: please describe this field!'),
+        'type' => 'int',
+        'not null' => TRUE,
+      ),
+      'data' => array(
+        'description' => t('TODO: please describe this field!'),
+        'type' => 'text',
+        'not null' => TRUE,
+      ),
+    ),
+  );
+  
+  $schema['punbb2drupal_comment'] = array(
+    'description' => t('TODO: please describe this table!'),
+    'fields' => array(
+      'cid' => array(
+        'description' => t('TODO: please describe this field!'),
+        'type' => 'int',
+        'not null' => TRUE,
+      ),
+      'id' => array(
+        'description' => t('TODO: please describe this field!'),
+        'type' => 'int',
+        'not null' => TRUE,
+      ),
+      'data' => array(
+        'description' => t('TODO: please describe this field!'),
+        'type' => 'text',
+        'not null' => TRUE,
+      ),
+    ),
+  );
+
+  return $schema;
+}
